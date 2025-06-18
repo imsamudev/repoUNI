@@ -13,7 +13,7 @@ Este sistema en **Python** permite:
 1. **Python 3.8+** instalado en tu sistema. Descargar en https://www.python.org/downloads/
 2. **pip** (viene con Python). Verificá con:
    ```bash
-   python --version
+   python --version /   py --version
    pip --version
    ```
 
