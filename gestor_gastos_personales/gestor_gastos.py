@@ -14,6 +14,7 @@ CATEGORIAS_DISPONIBLES = [
     "Otros"
 ]
 
+#  Carga y guardado de datos
 
 def cargar_datos():
     if not os.path.exists("gastos.json"):
@@ -56,7 +57,7 @@ def ver_gastos(datos):
     fecha_hoy = date.today().strftime('%d/%m/%Y')
     print(f"{'':<4} {'TOTAL':<25} {'':<12} {total:<10.2f} {fecha_hoy:<12}")
 
-
+#  Registrar nuevo gasto 
 
 def elegir_categoria():
     print("Categorías disponibles:")
@@ -93,6 +94,7 @@ def registrar_gasto(datos):
     })
     print("Gasto registrado.")
 
+# Modificar gasto existente
 
 def modificar_gasto(datos):
     if not datos:
@@ -127,6 +129,7 @@ def modificar_gasto(datos):
             return
     print("No se encontró un gasto con ese ID.")
 
+#  Eliminar gasto 
 
 def eliminar_gasto(datos):
     if not datos:
@@ -147,6 +150,7 @@ def eliminar_gasto(datos):
             return
     print("No se encontró un gasto con ese ID.")
 
+#   Ver estadísticas
 
 def calcular_estadisticas(datos):
     montos = []
@@ -162,7 +166,7 @@ def calcular_estadisticas(datos):
     suma_cat = defaultdict(float)
     for g in datos:
         suma_cat[g.get("categoria", "Otros")] += float(g.get("monto", 0))
-    porc_cat = {cat: (m/total*100 if total else 0.0) for cat, m in suma_cat.items()}
+    porc_cat = {cat: (m / total * 100 if total else 0.0) for cat, m in suma_cat.items()}
     cat_may = max(suma_cat, key=suma_cat.get) if suma_cat else None
     return {"total": total, "promedio": promedio, "mayor": mayor, "menor": menor, "por_categoria": porc_cat, "categoria_mayor": cat_may}
 
@@ -178,13 +182,24 @@ def ver_estadisticas(datos):
     for cat, pct in stats['por_categoria'].items():
         print(f"{cat:<12} {pct:8.2f}%")
     if stats.get('categoria_mayor'):
-        print(f"\nCategoría con mayor gasto: {stats['categoria_mayor']}")
+        print(f"\nCategoría con mayor gasto: {stats['categoria_mayor']}" )
 
+#  Eliminar todos los gastos 
+
+def eliminar_todos(datos):
+    confirm = input("¿Estás seguro que querés eliminar todos los gastos? (s/n): ").strip().lower()
+    if confirm == 's':
+        datos.clear()
+        print("Todos los gastos han sido eliminados.")
+    else:
+        print("Operación cancelada.")
+
+# Exportar a TXT y PDF 
 
 def exportar_a_txt(datos):
     ahora = datetime.now()
     fecha_display = ahora.strftime("%d/%m/%Y")
-    fecha_file    = ahora.strftime("%d-%m-%Y_%H-%M-%S")
+    fecha_file = ahora.strftime("%d-%m-%Y_%H-%M-%S")
     nombre_archivo = f"gastos_exportados_{fecha_file}.txt"
 
     stats = calcular_estadisticas(datos)
@@ -204,7 +219,6 @@ def exportar_a_txt(datos):
     with open(nombre_archivo, "w", encoding="utf-8") as archivo:
         archivo.write(json.dumps(contenido, indent=4, ensure_ascii=False))
     print(f"Gastos exportados a {nombre_archivo}")
-
 
 def exportar_a_pdf(datos):
     ahora = datetime.now()
