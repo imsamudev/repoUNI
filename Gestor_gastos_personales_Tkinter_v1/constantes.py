@@ -1,0 +1,1 @@
+CATEGORIAS_DISPONIBLES = ["Comida", "Transporte", "Ocio", "Salud", "Hogar", "Otros"]
