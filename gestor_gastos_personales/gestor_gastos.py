@@ -247,7 +247,13 @@ def exportar_a_pdf(datos):
     for idx, g in enumerate(datos, start=1):
         if y < 100:
             c.showPage()
-            y = height - 50
+            c.setFont("Helvetica-Bold", 12)
+            y = height - 80
+            c.drawString(50, y, "ID")
+            c.drawString(100, y, "Descripción")
+            c.drawString(300, y, "Monto")
+            c.drawString(400, y, "Fecha")
+            y -= 20
             c.setFont("Helvetica", 10)
         c.drawString(50, y, str(g.get('id', idx)))
         c.drawString(100, y, g.get('descripcion','')[:30])
@@ -258,6 +264,10 @@ def exportar_a_pdf(datos):
     y -= 20
     c.setFont("Helvetica-Bold", 12)
     c.drawString(50, y, f"TOTAL: {total:.2f} - Fecha de exportación: {fecha_display}")
+
+    if y < 180:
+        c.showPage()
+        y = height - 80
 
     y -= 40
     c.setFont("Helvetica-Bold", 14)
@@ -270,14 +280,29 @@ def exportar_a_pdf(datos):
     y -= 20
     c.drawString(50, y, f"Gasto mínimo: {stats['menor']:.2f}")
 
+    if y < 120:
+        c.showPage()
+        y = height - 80
+
     y -= 40
     c.setFont("Helvetica-Bold", 14)
     c.drawString(50, y, "Distribución por categoría")
     y -= 20
     c.setFont("Helvetica", 12)
     for cat, pct in stats['por_categoria'].items():
+        if y < 100:
+            c.showPage()
+            y = height - 80
+            c.setFont("Helvetica-Bold", 14)
+            c.drawString(50, y, "Distribución por categoría")
+            y -= 20
+            c.setFont("Helvetica", 12)
         c.drawString(50, y, f"{cat}: {pct:.2f}%")
         y -= 20
+
+    if y < 60:
+        c.showPage()
+        y = height - 80
 
     y -= 20
     c.setFont("Helvetica-Bold", 14)
