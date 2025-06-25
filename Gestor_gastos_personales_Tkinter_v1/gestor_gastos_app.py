@@ -88,3 +88,9 @@ class GestorGastosApp:
     def salir(self):
         self.guardar_datos()
         self.root.destroy()
+
+    def actualizar_todo(self):
+        if hasattr(self, "tree_frame"):
+            self.tree_frame.actualizar()
+        if EstadisticasFrame in self.frames:
+            self.frames[EstadisticasFrame].actualizar()
