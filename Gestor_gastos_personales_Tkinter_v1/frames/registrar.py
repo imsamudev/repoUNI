@@ -47,8 +47,7 @@ class RegistrarFrame(ctk.CTkFrame):
         })
         messagebox.showinfo("Éxito", "Gasto registrado.")
         self.limpiar_campos()
-        if hasattr(self.controller, 'tree_frame'):
-            self.controller.tree_frame.actualizar()
+        self.controller.actualizar_todo()
 
     def limpiar_campos(self):
         self.entry_desc.delete(0, tk.END)
