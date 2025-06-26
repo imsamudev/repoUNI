@@ -30,8 +30,7 @@ class EliminarFrame(ctk.CTkFrame):
                     self.controller.datos.pop(i)
                     messagebox.showinfo("Éxito", "Gasto eliminado")
                     self.entry_id.delete(0, tk.END)
-                    if hasattr(self.controller, 'tree_frame'):
-                        self.controller.tree_frame.actualizar()
+                    self.controller.actualizar_todo()
                 return
         messagebox.showerror("Error", "No se encontró un gasto con ese ID")
 
@@ -39,7 +38,6 @@ class EliminarFrame(ctk.CTkFrame):
         if messagebox.askyesno("Confirmación", "¿Estás seguro de eliminar TODOS los gastos?"):
             self.controller.datos.clear()
             messagebox.showinfo("Éxito", "Todos los gastos han sido eliminados")
-            if hasattr(self.controller, 'tree_frame'):
-                self.controller.tree_frame.actualizar()
+            self.controller.actualizar_todo()
     def actualizar(self):
         self.entry_id.delete(0, tk.END)
