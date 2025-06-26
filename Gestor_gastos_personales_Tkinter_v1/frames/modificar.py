@@ -78,8 +78,7 @@ class ModificarFrame(ctk.CTkFrame):
         messagebox.showinfo("Éxito", "Gasto modificado correctamente")
         self.entry_id.delete(0, tk.END)
         self.form_frame.pack_forget()
-        if hasattr(self.controller, 'tree_frame'):
-            self.controller.tree_frame.actualizar()
+        self.controller.actualizar_todo()
 
     def actualizar(self):
         self.entry_id.delete(0, tk.END)
