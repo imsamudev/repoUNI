@@ -23,7 +23,7 @@ class VerGastosFrame(ctk.CTkFrame):
         for col, w in [("ID",50),("Descripción",400),("Categoría",150),("Monto",100),("Fecha",150)]:
             self.tree.heading(col, text=col)
             self.tree.column(col, width=w)
-        self.scrollbar = ttk.Scrollbar(self, orient="vertical", command=self.tree.yview)
+        self.scrollbar = ctk.CTkScrollbar(self, orientation="vertical", command=self.tree.yview, corner_radius=10)
         self.tree.configure(yscrollcommand=self.scrollbar.set)
         self.tree.grid(row=0, column=0, sticky="nsew")
         self.scrollbar.grid(row=0, column=1, sticky="ns")
