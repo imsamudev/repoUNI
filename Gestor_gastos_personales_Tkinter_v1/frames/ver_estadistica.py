@@ -77,8 +77,12 @@ class EstadisticasFrame(ctk.CTkFrame):
         montos = list(suma_cat.values())
         if not categorias or sum(montos) == 0:
             return
+            
+        cat_montos = sorted(zip(categorias, montos), key=lambda x: x[1], reverse=True)
+        categorias_ordenadas, montos_ordenados = zip(*cat_montos)
+
         fig, ax = plt.subplots(figsize=(4, 3))
-        wedges, texts, autotexts = ax.pie(montos, labels=None, autopct='%1.1f%%', startangle=90)
+        wedges, texts, autotexts = ax.pie(montos_ordenados, labels=None, autopct='%1.1f%%', startangle=90)
         ax.set_title("Distribución por categoría")
         self.canvas = FigureCanvasTkAgg(fig, master=self.grafico_frame)
         self.canvas.draw()
@@ -87,10 +91,10 @@ class EstadisticasFrame(ctk.CTkFrame):
 
         for widget in self.leyenda_frame.winfo_children():
             widget.destroy()
-        for i, cat in enumerate(categorias):
+        for i, cat in enumerate(categorias_ordenadas):
             color = wedges[i].get_facecolor()
             color_hex = '#%02x%02x%02x' % tuple(int(c*255) for c in color[:3])
-            leyenda = ctk.CTkLabel(self.leyenda_frame, text=f"{cat}: ${montos[i]:.2f}", anchor="w",
+            leyenda = ctk.CTkLabel(self.leyenda_frame, text=f"{cat}: ${montos_ordenados[i]:.2f}", anchor="w",
                                    fg_color=color_hex, text_color="white", corner_radius=6, width=180)
             leyenda.pack(fill="x", padx=2, pady=2)
 
