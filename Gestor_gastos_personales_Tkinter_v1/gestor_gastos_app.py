@@ -36,7 +36,7 @@ class GestorGastosApp:
         self.menu_frame.grid(row=0, column=0, sticky="ew", padx=10, pady=5)
         self.menu_frame.grid_columnconfigure(0, weight=1)
         ctk.CTkLabel(self.menu_frame, text="").grid(row=0, column=0, sticky="w")
-        ctk.CTkButton(self.menu_frame, text="Guardar y Salir", command=self.salir).grid(row=0, column=1, sticky="e", padx=5)
+        ctk.CTkButton(self.menu_frame, text="Guardar y Salir", command=self.salir, cursor="hand2").grid(row=0, column=1, sticky="e", padx=5)
 
         self.content_container = ctk.CTkFrame(self.main_frame)
         self.content_container.grid(row=1, column=0, sticky="nsew", padx=10, pady=5)
